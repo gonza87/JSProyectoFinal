@@ -1,4 +1,8 @@
 /****************************************************************
+Google Fonts
+*****************************************************************/
+@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap");
+/****************************************************************
 Reset CSS
 *****************************************************************/
 
@@ -7,12 +11,10 @@ Reset CSS
   padding: 0;
   scroll-behavior: smooth;
   box-sizing: border-box;
+  font-family: 'Roboto', sans-serif;
 }
 
-/****************************************************************
-Google Fonts
-*****************************************************************/
-@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap");
+
 
 /****************************************************************
 HEADER PARA TODAS LAS PAGINAS
@@ -25,7 +27,11 @@ HEADER PARA TODAS LAS PAGINAS
   width: 300px;
   height: 80px;
 }
-.header .menu div .menuLista ul li a:hover {
+.header .menu div .menuLista ul li button {
+  font-size: 1.5rem;
+}
+
+.header .menu div .menuLista ul li button:hover {
   color: yellow;
 }
 

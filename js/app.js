@@ -1,11 +1,13 @@
 
 console.table(productos);
-
 const contenedorProductos = document.querySelector("#misProductos");
+const body = document.body;
 
-
-function renderizarProductos (list){
+//Cargo todos los productos
+function cargarProductos (list){
+  
     for (producto of productos){
+       
         contenedorProductos.innerHTML += `
         <div class="card col-6 m-1" style="width: 15rem">
         <img src="${producto.imagen}" class="card-img-top" alt="producto" />
@@ -20,11 +22,11 @@ function renderizarProductos (list){
         `;
     }
 }
+cargarProductos(productos);
 
-renderizarProductos(productos);
+//**************************************************************************************** */
 
-
-const body = document.body;
+//Boton dark mode
 const btnDarkMode = document.querySelector("#btnDarkMode");
 
 if (localStorage.getItem("mode")=== "light")
@@ -52,10 +54,39 @@ btnDarkMode.addEventListener("click",()=>{
     localStorage.setItem("mode","light")
 
   }
-    
-  
 });
+//************************************************/
 
+//FILTRO TABLAS
+const btnTablas = document.querySelector("#btntablas");
+
+btnTablas.addEventListener("click",()=>{   
+  
+  filtroTablas(productos);
+
+})
+
+function filtroTablas(list){
+  const listTablas = list.filter((el)=>el.categoria.includes("tablas"));
+  contenedorProductos.innerHTML="";
+  for (tabla of listTablas){
+       
+  contenedorProductos.innerHTML += `
+  <div class="card col-6 m-1" style="width: 15rem">
+  <img src="${tabla.imagen}" class="card-img-top" alt="producto" />
+  <div class="card-body">
+    <h5 class="card-title">US$ ${tabla.precio}</h5>
+    <p class="card-text">
+      ${tabla.marca} - ${tabla.modelo}
+    </p>
+    <a href="#" class="btn btn-primary text-center">Comprar</a>
+  </div>
+  </div> 
+  `;
+}
+
+
+};
 
 
 
