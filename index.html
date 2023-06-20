@@ -51,12 +51,19 @@
               class="navbar-nav ms-auto mb-2 mb-lg-0 animate__animated animate__backInLeft"
             >
               <li class="nav-item">
-                <button id="btntablas" type="button" class="btn">Tablas</button>
+                <button id="todos" type="button" class="btn">Todos Los Articulos</button>
+              </li>
+              <li class="nav-item">
+                <button id="tablas" type="button" class="btn btnCategoria">Tablas</button>
+              </li>
+              <li class="nav-item">
+                <button id="trajes" type="button" class="btn btnCategoria">Trajes</button>
+              </li>
+              <li class="nav-item">
+                <button id="accesorios" type="button" class="btn btnCategoria">Accesorios</button>
               </li>
               
-              <li class="nav-item">
-                <button  type="button" class="btn"></button>
-              </li>
+             
               <li>
                 <button id="btnCarrito" type="button" class="btn" data-bs-toggle="modal" data-bs-target="#exampleModal">
                 <i class="bi bi-cart-fill"></i>
@@ -69,7 +76,7 @@
     </header>
 
     <main class="container-sm">
-      <h1 class="text-center">Ventas de surfing</h1>
+      <h1 id="titulo" class="text-center">Ventas de surfing</h1>
       <section id="misProductos" class="row"></section>
       <button id="btnDarkMode">Dark Mode</button>
     </main>
@@ -79,42 +86,27 @@
       <div class="modal-dialog">
       <div class="modal-content">
       <div class="modal-header">
-        <h1 class="modal-title fs-5" id="exampleModalLabel">Mi Carrito</h1>
+        <h1 class="modal-title fs-3" id="exampleModalLabel">Mi Carrito</h1>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
         <table class="table">
           <thead>
             <tr>
-              <th scope="col">#</th>
-              <th scope="col">First</th>
-              <th scope="col">Last</th>
-              <th scope="col">Handle</th>
+              <th scope="col">Id</th>
+              <th scope="col">Marca</th>
+              <th scope="col">Imagen</th>
+              <th scope="col">Precio</th>
             </tr>
           </thead>
-          <tbody>
-            <tr>
-              <th scope="row">1</th>
-              <td>Mark</td>
-              <td>Otto</td>
-              <td>@mdo</td>
-            </tr>
-            <tr>
-              <th scope="row">2</th>
-              <td>Jacob</td>
-              <td>Thornton</td>
-              <td>@fat</td>
-            </tr>
-            <tr>
-              <th scope="row">3</th>
-              <td colspan="2">Larry the Bird</td>
-              <td>@twitter</td>
-            </tr>
+          <tbody id="contenedorCarro">
+         
           </tbody>
         </table>
+        <h2 id="totalPagar" class="fs-3"></h2>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button   type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
         <button type="button" class="btn btn-primary">Save changes</button>
       </div>
       </div>

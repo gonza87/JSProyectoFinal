@@ -1,13 +1,17 @@
 
-console.table(productos);
+
 const contenedorProductos = document.querySelector("#misProductos");
 const body = document.body;
+let carrito;
+const contenedorCarro = document.querySelector("#contenedorCarro");
+const btnTodos = document.querySelector("#todos");
+const totalAPagar = document.querySelector("#totalPagar");
 
-//Cargo todos los productos
-function cargarProductos (list){
-  
-    for (producto of productos){
-       
+//FUNCION QUE RECIBE LISTA DE ARTICULOS
+function cargarProductos (listProductos){
+  contenedorProductos.innerHTML="";
+    for (producto of listProductos){
+      
         contenedorProductos.innerHTML += `
         <div class="card col-6 m-1" style="width: 15rem">
         <img src="${producto.imagen}" class="card-img-top" alt="producto" />
@@ -16,13 +20,96 @@ function cargarProductos (list){
           <p class="card-text">
             ${producto.marca} - ${producto.modelo}
           </p>
-          <a href="#" class="btn btn-primary text-center">Comprar</a>
+          <button id="${producto.id}" type="button" class="btn btn-primary btnCompra">Comprar</button>
         </div>
         </div> 
         `;
     }
+    updateBtnCompra();
 }
 cargarProductos(productos);
+
+btnTodos.addEventListener("click",()=>{
+  cargarProductos(productos);
+})
+
+//FILTRO DE PRODUCTOS
+const btnCategoria = document.querySelectorAll(".btnCategoria");// Selecciono coleccion de todos los botones Categoria
+
+btnCategoria.forEach((boton) =>{
+  
+  boton.addEventListener("click",()=>{  
+    
+    const filtoProductos = productos.filter(producto => producto.categoria === boton.id);
+    
+    cargarProductos(filtoProductos);
+    
+  });
+});
+
+
+//Actualiza los Botones de compra 
+function updateBtnCompra(){
+  let botonesCompra = document.querySelectorAll(".btnCompra");
+  for (const btn of botonesCompra){
+    btn.addEventListener("click",()=>{
+      const prodACarro = productos.find((producto)=> producto.id == btn.id);
+      
+      agregarACarro(prodACarro);
+   });
+ };
+};
+
+// let carritoEnStorage = JSON.parse(localStorage.getItem("carrito"));
+// if (carritoEnStorage)
+// carrito = carritoEnStorage;
+// else{
+//   carrito = [];
+// }
+
+carrito = JSON.parse(localStorage.getItem("carrito")) || ([]); 
+
+
+function agregarACarro(prod){
+  
+  carrito.push(prod);
+  localStorage.setItem("carrito", JSON.stringify(carrito));
+  
+  
+  
+};
+
+
+const btnCarrito = document.querySelector("#btnCarrito");
+btnCarrito.addEventListener("click",()=>{
+  const prodEnCarrito = JSON.parse(localStorage.getItem("carrito"));
+  console.log(prodEnCarrito);
+  contenedorCarro.innerHTML = "";
+    prodEnCarrito.forEach(prod =>{
+   
+      contenedorCarro.innerHTML += `
+      <tr>
+      <th scope="row">${prod.id}</th>
+      <td>${prod.marca}</td>
+      <td><img class="imgCarrito" src="${prod.imagen}" alt=""></td>
+      <td>U$S ${prod.precio}</td>
+      </tr>
+     `;
+     
+  });
+  const total = prodEnCarrito.reduce((acumulador,art)=>acumulador + art.precio, 0);
+  totalAPagar.innerHTML=`ToTal: ${total}`
+  
+});
+
+  
+  
+ 
+
+  
+
+
+
 
 //**************************************************************************************** */
 
@@ -35,9 +122,15 @@ if (localStorage.getItem("mode")=== "light")
   btnDarkMode.textContent="Dark Mode";
 }
 
-else{
+else if(localStorage.getItem("mode")=== "dark")
+{
   body.className="dark";
   btnDarkMode.textContent="Light Mode";
+}
+else{
+  localStorage.setItem("mode","light")
+  body.className="light";
+  btnDarkMode.textContent="Dark Mode";
 }
 
 btnDarkMode.addEventListener("click",()=>{
@@ -57,194 +150,7 @@ btnDarkMode.addEventListener("click",()=>{
 });
 //************************************************/
 
-//FILTRO TABLAS
-const btnTablas = document.querySelector("#btntablas");
-
-btnTablas.addEventListener("click",()=>{   
-  
-  filtroTablas(productos);
-
-})
-
-function filtroTablas(list){
-  const listTablas = list.filter((el)=>el.categoria.includes("tablas"));
-  contenedorProductos.innerHTML="";
-  for (tabla of listTablas){
-       
-  contenedorProductos.innerHTML += `
-  <div class="card col-6 m-1" style="width: 15rem">
-  <img src="${tabla.imagen}" class="card-img-top" alt="producto" />
-  <div class="card-body">
-    <h5 class="card-title">US$ ${tabla.precio}</h5>
-    <p class="card-text">
-      ${tabla.marca} - ${tabla.modelo}
-    </p>
-    <a href="#" class="btn btn-primary text-center">Comprar</a>
-  </div>
-  </div> 
-  `;
-}
-
-
-};
 
 
 
 
-
-
-
-
-
-
-
-
-{/* <div class="card" style="width: 18rem">
-<img src="..." class="card-img-top" alt="..." />
-<div class="card-body">
-  <h5 class="card-title">Card title</h5>
-  <p class="card-text">
-    Some quick example text to build on the card title and make up the
-    bulk of the card's content.
-  </p>
-  <a href="#" class="btn btn-primary text-center">Comprar</a>
-</div>
-</div> */}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// class Tabla{
-//     constructor(id, marca, modelo, medida, color, precio, stock){
-//         this.id = id;
-//         this.marca = marca;
-//         this.modelo = modelo;
-//         this.medida = medida;
-//         this.color = color;
-//         this.precio = precio;
-//         this.stock = stock;
-
-//     }
-// }
-// //creo los objetos
-// const tabla1 = new Tabla(01,"Lost","Light Speed","6.2","blanca", 840, true);
-// const tabla2 = new Tabla(02,"Lost","Puddle Jumper","6.1","blanca", 850, false);
-// const tabla3 = new Tabla(03,"Fireware","Frk","6.2","blanca", 855, true);
-// const tabla4 = new Tabla(04,"Fireware","Hydroshort","6.2","blanca", 845, true);
-
-// //array de tablas
-// const listaTablas = [];
-// //agrego los objetos al array
-// listaTablas.push(tabla1,tabla2,tabla3,tabla4);
-
-
-// let totalArticulos = 0;//acumulo el monto total
-
-// let nameUser = prompt("Ingresa tu Nombre");
-// while(nameUser.trim() === ""){
-//     alert("Usuario invalido");
-//     nameUser = prompt("Ingresa tu Nombre");
-// }
-
-// alert("Bienvenido "+nameUser+"!!!")
-// let ingresar = prompt("Desea Ingresar al menú de Tablas?\n *S/si* o *N/no*")
-// if(ingresar === "s" || ingresar ==="S"){
-//     ingresar = true;
-    
-// }
-// else{
-//     ingresar = false;
-    
-// }
-
-
-
-//  while(ingresar){
-   
-//      let opcion = parseInt(prompt("Menú de Tablas\n"+"1-Listar Tablas por precio\n"+"2-Comprobar Stock\n"+"3-Agregar al Carrito\n"+
-//       "4-Ordenar de Menor a Mayor Precio\n"+"5-Total\n"+"0-Salir"));
-//     switch(opcion)
-//         {
-//          case 1:
-//              let precio  = parseInt(prompt("Ingrese precio máximo"))
-//              if (isNaN(precio) || precio <=0)
-//                 alert("Debe ingresar un precio valido");
-//             else{
-//                 const filtro = filtrarPrecio(precio);
-//                 console.table(filtro);
-//             }
-//             break;
-
-//          case 2:
-//              console.table(filtrarPorStock());
-//              break;
-
-//          case 3:
-//              let idtabla = parseInt(prompt("Ingrese el id de la tabla"))
-//              sumarPrecios(listaTablas, idtabla);
-//              break;
-         
-//          case 4:
-//              precioMenorAMayor(listaTablas);
-//              console.table(listaTablas);    
-//              break;
-        
-//          case 5:
-//              alert("Total a Pagar: "+totalArticulos)
-//              break;
-       
-//          case 0:
-//             ingresar = false;
-//             break;
-        
-//          default:
-//             alert("Error- Opcion Invalida");
-//             break;
-
-//      }
-
-    
-//  }
-//  //Declaracion de funciones
-
-//  function filtrarPrecio(precio){
-//     const filtrados = listaTablas.filter((tabla)=>tabla.precio <= precio);
-//     return filtrados;
-//  }
-
-//  function filtrarPorStock(){
-//     const filtradosStock = listaTablas.filter((tabla)=>tabla.stock === true);
-//     return filtradosStock;
-
-//  }
-
-//  function sumarPrecios(listaTablas,id){
-//     if (isNaN(id)){
-//             alert("Dede ser un id valido");
-//     }
-//     else{
-//         for (lista of listaTablas){
-//             if(lista.id === id)
-//             totalArticulos = totalArticulos + lista.precio;
-//         }
-//     }
-    
-//     return totalArticulos;
-//  }
-
-// function precioMenorAMayor(list){
-//     list.sort((a, b)  => a.precio - b.precio);
-//     return list;
-// }
