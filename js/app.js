@@ -1,6 +1,7 @@
 
 
 const contenedorProductos = document.querySelector("#misProductos");
+console.log(contenedorProductos)
 const body = document.body;
 let carrito;
 const contenedorCarro = document.querySelector("#contenedorCarro");
@@ -71,9 +72,17 @@ carrito = JSON.parse(localStorage.getItem("carrito")) || ([]);
 
 
 function agregarACarro(prod){
+  const buscar = carrito.find((art)=>art.id === prod.id);
+  if(buscar)
+  {
+    buscar.cantidad = buscar.cantidad + 1;
+    localStorage.setItem("carrito", JSON.stringify(carrito));
+  }
+  else{
+    carrito.push(prod);
+    localStorage.setItem("carrito", JSON.stringify(carrito));
+  }
   
-  carrito.push(prod);
-  localStorage.setItem("carrito", JSON.stringify(carrito));
   
   
   
@@ -90,14 +99,15 @@ btnCarrito.addEventListener("click",()=>{
       contenedorCarro.innerHTML += `
       <tr>
       <th scope="row">${prod.id}</th>
-      <td>${prod.marca}</td>
       <td><img class="imgCarrito" src="${prod.imagen}" alt=""></td>
+      <td>${prod.marca}</td>
+      <td>${prod.cantidad}</td>
       <td>U$S ${prod.precio}</td>
       </tr>
      `;
      
   });
-  const total = prodEnCarrito.reduce((acumulador,art)=>acumulador + art.precio, 0);
+  const total = prodEnCarrito.reduce((acumulador,art)=>acumulador + (art.precio*art.cantidad), 0);
   totalAPagar.innerHTML=`ToTal: ${total}`
   
 });
