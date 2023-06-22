@@ -1,20 +1,23 @@
 
 
 const contenedorProductos = document.querySelector("#misProductos");
-console.log(contenedorProductos)
+const titulo = document.querySelector("#titulo");
 const body = document.body;
-let carrito;
-const contenedorCarro = document.querySelector("#contenedorCarro");
 const btnTodos = document.querySelector("#todos");
+const carrito = JSON.parse(localStorage.getItem("carrito")) || ([]);
+const btnCarrito = document.querySelector("#btnCarrito"); 
+const contenedorCarro = document.querySelector("#contenedorCarro");
 const totalAPagar = document.querySelector("#totalPagar");
+const btnVaciarCarro = document.querySelector("#vaciarCarro");
 
-//FUNCION QUE RECIBE LISTA DE ARTICULOS
+//FUNCION QUE RECIBE LISTA DE ARTICULOS Y LOS CARGA EN HTML
 function cargarProductos (listProductos){
   contenedorProductos.innerHTML="";
+  
     for (producto of listProductos){
       
         contenedorProductos.innerHTML += `
-        <div class="card col-6 m-1" style="width: 15rem">
+        <div class="card col-6 m-2" style="width: 15rem">
         <img src="${producto.imagen}" class="card-img-top" alt="producto" />
         <div class="card-body">
           <h5 class="card-title">US$ ${producto.precio}</h5>
@@ -30,7 +33,9 @@ function cargarProductos (listProductos){
 }
 cargarProductos(productos);
 
+//BOTON TODOS LOS PRODUCTOS
 btnTodos.addEventListener("click",()=>{
+  titulo.innerHTML = "Todos Los Articulos";
   cargarProductos(productos);
 })
 
@@ -42,7 +47,7 @@ btnCategoria.forEach((boton) =>{
   boton.addEventListener("click",()=>{  
     
     const filtoProductos = productos.filter(producto => producto.categoria === boton.id);
-    
+    titulo.innerHTML= boton.id;
     cargarProductos(filtoProductos);
     
   });
@@ -61,16 +66,11 @@ function updateBtnCompra(){
  };
 };
 
-// let carritoEnStorage = JSON.parse(localStorage.getItem("carrito"));
-// if (carritoEnStorage)
-// carrito = carritoEnStorage;
-// else{
-//   carrito = [];
-// }
-
-carrito = JSON.parse(localStorage.getItem("carrito")) || ([]); 
 
 
+
+
+//FUNCION PARA AGREGAR ARTICULOS AL CARRO
 function agregarACarro(prod){
   const buscar = carrito.find((art)=>art.id === prod.id);
   if(buscar)
@@ -82,18 +82,14 @@ function agregarACarro(prod){
     carrito.push(prod);
     localStorage.setItem("carrito", JSON.stringify(carrito));
   }
-  
-  
-  
-  
 };
 
 
-const btnCarrito = document.querySelector("#btnCarrito");
+
 btnCarrito.addEventListener("click",()=>{
   const prodEnCarrito = JSON.parse(localStorage.getItem("carrito"));
-  console.log(prodEnCarrito);
-  contenedorCarro.innerHTML = "";
+  if(prodEnCarrito){
+    contenedorCarro.innerHTML = "";
     prodEnCarrito.forEach(prod =>{
    
       contenedorCarro.innerHTML += `
@@ -103,13 +99,36 @@ btnCarrito.addEventListener("click",()=>{
       <td>${prod.marca}</td>
       <td>${prod.cantidad}</td>
       <td>U$S ${prod.precio}</td>
+      <td><button type="button" class="btn btn-danger btn-sm ms-2"><i class="bi bi-trash"></i></button></td>
       </tr>
      `;
      
-  });
-  const total = prodEnCarrito.reduce((acumulador,art)=>acumulador + (art.precio*art.cantidad), 0);
-  totalAPagar.innerHTML=`ToTal: ${total}`
+    });
+    const total = prodEnCarrito.reduce((acumulador,art)=>acumulador + (art.precio*art.cantidad), 0);
+    totalAPagar.innerHTML=`ToTal: ${total}`
+  }
+  else{
+    contenedorCarro.innerHTML="";
+    contenedorCarro.innerHTML += `
+      <tr>
+      <th scope="row"><p class="text-danger fw-bold fs-3">Carro Vacio</p></th>
+      </tr>
+     `;
+  }
   
+  
+});
+
+//VACIADO DE CARRO
+btnVaciarCarro.addEventListener("click",()=>{
+  localStorage.removeItem("carrito");
+  contenedorCarro.innerHTML = "";
+  totalAPagar.innerHTML="";
+  contenedorCarro.innerHTML += `
+      <tr>
+      <th scope="row"><p class="text-danger fw-bold fs-3">Carro Vacio</p></th>
+      </tr>
+     `;
 });
 
   

@@ -4,6 +4,8 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>TodoSurf</title>
+    <link rel="icon" href="./img/favicon.png" />
     <!-- CSS BOOTSTRAP -->
     <link
       href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
@@ -23,7 +25,7 @@
     />
     <!-- CSS PROPIO -->
     <link rel="stylesheet" href="./css/styles.css" />
-    <title>TodoSurf</title>
+   
   </head>
   <body class="light">
     <header class="header">
@@ -47,28 +49,24 @@
             class="menuLista collapse navbar-collapse"
             id="navbarSupportedContent"
           >
-            <ul
-              class="navbar-nav ms-auto mb-2 mb-lg-0 animate__animated animate__backInLeft"
-            >
+            <ul class="navbar-nav ms-auto mb-2 mb-lg-0 animate__animated animate__backInLeft">
               <li class="nav-item">
                 <button id="todos" type="button" class="btn">Todos Los Articulos</button>
               </li>
               <li class="nav-item">
-                <button id="tablas" type="button" class="btn btnCategoria">Tablas</button>
+                <button id="Tablas" type="button" class="btn btnCategoria">Tablas</button>
               </li>
               <li class="nav-item">
-                <button id="trajes" type="button" class="btn btnCategoria">Trajes</button>
+                <button id="Trajes" type="button" class="btn btnCategoria">Trajes</button>
               </li>
               <li class="nav-item">
-                <button id="accesorios" type="button" class="btn btnCategoria">Accesorios</button>
+                <button id="Accesorios" type="button" class="btn btnCategoria">Accesorios</button>
               </li>
-              
-             
               <li>
                 <button id="btnCarrito" type="button" class="btn" data-bs-toggle="modal" data-bs-target="#exampleModal">
                 <i class="bi bi-cart-fill"></i>
-              </button>
-            </li>
+                </button>
+              </li>
             </ul>
           </div>
         </div>
@@ -76,18 +74,20 @@
     </header>
 
     <main class="container-sm">
-      <h1 id="titulo" class="text-center">Ventas de surfing</h1>
-      <section id="misProductos" class="row"></section>
+      <h1 id="titulo" class="text-center m-4">Todos Los Articulos</h1>
+      <section id="misProductos" class="row">
+        <!-- Carga lista de productos -->
+      </section>
       <button id="btnDarkMode">Dark Mode</button>
     </main>
     <section>
       <!-- Modal -->
       <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-      <div class="modal-dialog">
-      <div class="modal-content">
-      <div class="modal-header">
-        <h2 class="modal-title fs-3" id="exampleModalLabel">Mi Carrito</h2>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h2 class="modal-title fs-3" id="exampleModalLabel">Mi Carrito</h2>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
         <table class="table">
@@ -107,14 +107,34 @@
         <h2 id="totalPagar" class="fs-3"></h2>
       </div>
       <div class="modal-footer">
-        <button   type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Save changes</button>
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button id="vaciarCarro" type="button" class="btn btn-danger">Vaciar Carro</button>
       </div>
       </div>
       </div>
       </div>
     </section>
-    <footer></footer>
+    <footer class="footer">
+      <div>
+        <a href="./index.html"
+          ><img class="logo" src="./img/logo1.jpg" alt="Logo"
+        /></a>
+      </div>
+      <nav class="nav">
+        <div class="redes">
+          <a href="https://www.facebook.com/" target="_blank"
+            ><img src="./img/iconos/facebook.png" alt="facebook"
+          /></a>
+          <a href="https://www.instagram.com/" target="_blank"
+            ><img src="./img/iconos/instagram.png" alt="instagram"
+          /></a>
+          <a href="https://www.youtube.com/" target="_blank"
+            ><img src="./img/iconos/youtube.png" alt="youtube"
+          /></a>
+        </div>
+      </nav>
+      <h4>&copy; 2023 - TodoSurf</h4>
+    </footer>
     <!-- JS BOOTSTRAP -->
     <script
       src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"
