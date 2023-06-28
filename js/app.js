@@ -10,6 +10,7 @@ const contenedorCarro = document.querySelector("#contenedorCarro");
 const totalAPagar = document.querySelector("#totalPagar");
 const btnVaciarCarro = document.querySelector("#vaciarCarro");
 
+
 //FUNCION QUE RECIBE LISTA DE ARTICULOS Y LOS CARGA EN HTML
 function cargarProductos (listProductos){
   contenedorProductos.innerHTML="";
@@ -87,6 +88,12 @@ function agregarACarro(prod){
 
 
 btnCarrito.addEventListener("click",()=>{
+  renderizarCarro();
+  
+  
+});
+
+function renderizarCarro(){
   const prodEnCarrito = JSON.parse(localStorage.getItem("carrito"));
   if(prodEnCarrito){
     contenedorCarro.innerHTML = "";
@@ -99,13 +106,14 @@ btnCarrito.addEventListener("click",()=>{
       <td>${prod.marca}</td>
       <td>${prod.cantidad}</td>
       <td>U$S ${prod.precio}</td>
-      <td><button type="button" class="btn btn-danger btn-sm ms-2"><i class="bi bi-trash"></i></button></td>
+      <td><button id="${prod.id}" type="button" class="btn btn-danger btn-sm ms-2 eliminar-articulo"><i class="bi bi-trash"></i></button></td>
       </tr>
      `;
      
     });
     const total = prodEnCarrito.reduce((acumulador,art)=>acumulador + (art.precio*art.cantidad), 0);
     totalAPagar.innerHTML=`ToTal: ${total}`
+    updateBtnEliminarArticulo();
   }
   else{
     contenedorCarro.innerHTML="";
@@ -115,9 +123,8 @@ btnCarrito.addEventListener("click",()=>{
       </tr>
      `;
   }
-  
-  
-});
+}
+
 
 //VACIADO DE CARRO
 btnVaciarCarro.addEventListener("click",()=>{
@@ -131,6 +138,41 @@ btnVaciarCarro.addEventListener("click",()=>{
      `;
 });
 
+//ELIMINAR ARTICULO DE CARRO
+
+
+function updateBtnEliminarArticulo(){
+  let botonesEliminarArticulo = document.querySelectorAll(".eliminar-articulo");
+  for (const btn of botonesEliminarArticulo){
+    btn.addEventListener("click",()=>{
+      
+      let prodAEliminar = carrito.find((producto)=> producto.id == btn.id);
+      if(prodAEliminar.cantidad !== 1)
+      {
+        cantidadProd = prodAEliminar.cantidad - 1;
+        prodAEliminar.cantidad = cantidadProd;
+        localStorage.setItem("carrito", JSON.stringify(carrito));
+        renderizarCarro();
+        console.log(prodAEliminar)
+      }
+
+      else{
+        prodAEliminar = carrito.indexOf(prodAEliminar);
+        eliminarArticulo(prodAEliminar);
+        renderizarCarro();
+      }
+
+     
+      
+   });
+ };
+};
+
+ function eliminarArticulo(prod){
+  carrito.splice(prod,1)
+  localStorage.setItem("carrito", JSON.stringify(carrito));
+  
+ }
   
   
  
