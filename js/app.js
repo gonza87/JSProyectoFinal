@@ -63,6 +63,13 @@ function updateBtnCompra(){
       const prodACarro = productos.find((producto)=> producto.id == btn.id);
       
       agregarACarro(prodACarro);
+      Swal.fire({
+        position: 'center',
+        icon: 'success',
+        title: `${prodACarro.marca} ${prodACarro.modelo} Agregado Al Carrito`,
+        showConfirmButton: false,
+        timer: 1200
+      })
    });
  };
 };
@@ -127,15 +134,39 @@ function renderizarCarro(){
 
 
 //VACIADO DE CARRO
+
+
+
 btnVaciarCarro.addEventListener("click",()=>{
-  localStorage.removeItem("carrito");
-  contenedorCarro.innerHTML = "";
-  totalAPagar.innerHTML="";
-  contenedorCarro.innerHTML += `
+  Swal.fire({
+    icon: 'question',
+    iconColor: "red",
+    title: 'Seguro que quieres vaciar el carrito?',
+    showCancelButton: true,
+    cancelButtonText: "Cancelar",
+    confirmButtonText: 'Aceptar',
+  
+  }).then((result) => {
+  
+  if (result.isConfirmed) {
+    localStorage.removeItem("carrito");
+    contenedorCarro.innerHTML = "";
+    totalAPagar.innerHTML="";
+    contenedorCarro.innerHTML += `
       <tr>
       <th scope="row"><p class="text-danger fw-bold fs-3">Carro Vacio</p></th>
       </tr>
      `;
+    Swal.fire({
+      icon: "success",
+      title: 'Vaciado Exitosamente!',
+    })
+  } 
+ 
+})
+
+
+  
 });
 
 //ELIMINAR ARTICULO DE CARRO
@@ -173,15 +204,6 @@ function updateBtnEliminarArticulo(){
   localStorage.setItem("carrito", JSON.stringify(carrito));
   
  }
-  
-  
- 
-
-  
-
-
-
-
 //**************************************************************************************** */
 
 //Boton dark mode
@@ -190,31 +212,31 @@ const btnDarkMode = document.querySelector("#btnDarkMode");
 if (localStorage.getItem("mode")=== "light")
 {
   body.className="light";
-  btnDarkMode.textContent="Dark Mode";
+  btnDarkMode.innerHTML=`<p>Light Mode <i class="bi bi-toggle2-off"></i></p>`;
 }
 
 else if(localStorage.getItem("mode")=== "dark")
 {
   body.className="dark";
-  btnDarkMode.textContent="Light Mode";
+  btnDarkMode.innerHTML= `<p>Dark Mode <i class="bi bi-toggle2-on"></i></p>`;
 }
 else{
   localStorage.setItem("mode","light")
   body.className="light";
-  btnDarkMode.textContent="Dark Mode";
+  btnDarkMode.innerHTML=`<p>Light Mode <i class="bi bi-toggle2-off"></i></p>`;
 }
 
 btnDarkMode.addEventListener("click",()=>{
   
   if (localStorage.getItem("mode") === "light"){
     body.classList.replace("light","dark");
-    btnDarkMode.textContent="Light Mode";
+    btnDarkMode.innerHTML= `<p>Dark Mode <i class="bi bi-toggle2-on"></i></p>`;
     localStorage.setItem("mode","dark");
      
   }
   else{
     body.classList.replace("dark","light");
-    btnDarkMode.textContent="Dark Mode";
+    btnDarkMode.innerHTML=`<p>Light Mode <i class="bi bi-toggle2-off"></i></p>`;
     localStorage.setItem("mode","light")
 
   }
