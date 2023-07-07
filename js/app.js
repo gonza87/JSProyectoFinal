@@ -329,6 +329,7 @@ else if(localStorage.getItem("mode")=== "dark")
 {
   body.className="dark";
   btnDarkMode.innerHTML= `<p>Dark Mode <i class="bi bi-toggle2-on"></i></p>`;
+  totalAPagar.style.color = "black";//Para que en el modal me deje negro el color del total a pagar
 }
 else{
   localStorage.setItem("mode","light")
@@ -340,6 +341,7 @@ btnDarkMode.addEventListener("click",()=>{
   
   if (localStorage.getItem("mode") === "light"){
     body.classList.replace("light","dark");
+    totalAPagar.style.color = "black";//Para que en el modal me deje negro el color del total a pagar
     btnDarkMode.innerHTML= `<p>Dark Mode <i class="bi bi-toggle2-on"></i></p>`;
     localStorage.setItem("mode","dark");
      
