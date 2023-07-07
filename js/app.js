@@ -1,5 +1,37 @@
+// Funcion para hacer fetch a mi json y lo cargo en array productos
+let productos = [];
+
+function traerJsonFetch(){
+const url = "./js/productos.json";
+  fetch(url)
+  .then(response => response.json())
+  .then(data =>{
+    
+    productos = data;
+    cargarProductos(productos);
+
+  });
+
+};
+traerJsonFetch();
+
+// Funcion para hacer fetch a api de cotizacion de dolar para Uruguay y lo inserto en el html
+let coti;
+function traerJsonCotizacion(){
+  const url = "https://cotizaciones-brou-v2-e449.fly.dev/currency/latest";
+  fetch(url)
+  .then(response => response.json())
+  .then(data =>{
+    
+    coti = data.rates.USD.sell
+    cotizacion.innerHTML = `UYU/USD: ${coti}`;
+    
+  });
+}
+traerJsonCotizacion();
 
 
+//Llamo a elementos del HTML y declaro constantes de la mayoria de los elementos que necesito
 const contenedorProductos = document.querySelector("#misProductos");
 const titulo = document.querySelector("#titulo");
 const body = document.body;
@@ -10,7 +42,7 @@ const contenedorCarro = document.querySelector("#contenedorCarro");
 const totalAPagar = document.querySelector("#totalPagar");
 const btnVaciarCarro = document.querySelector("#vaciarCarro");
 const btnFinalizarCompra = document.querySelector("#finalizarCompra");
-
+const cotizacion =  document.querySelector("#cotizacion");
 
 //FUNCION QUE RECIBE LISTA DE ARTICULOS Y LOS CARGA EN HTML
 function cargarProductos (listProductos){
@@ -19,7 +51,7 @@ function cargarProductos (listProductos){
     for (producto of listProductos){
       
         contenedorProductos.innerHTML += `
-        <div class="card col-6 m-2" style="width: 15rem">
+        <div class="card col-6 m-2 shadow p-3 mb-5 bg-body-tertiary rounded" style="width: 15rem">
         <img src="${producto.imagen}" class="card-img-top" alt="producto" />
         <div class="card-body">
           <h5 class="card-title">US$ ${producto.precio}</h5>
@@ -33,7 +65,7 @@ function cargarProductos (listProductos){
     }
     updateBtnCompra();
 }
-cargarProductos(productos);
+
 
 
 //BOTON TODOS LOS PRODUCTOS
@@ -65,13 +97,22 @@ function updateBtnCompra(){
       const prodACarro = productos.find((producto)=> producto.id == btn.id);
       
       agregarACarro(prodACarro);
-      Swal.fire({
-        position: 'center',
-        icon: 'success',
-        title: `${prodACarro.marca} ${prodACarro.modelo} Agregado Al Carrito`,
+
+      const Toast = Swal.mixin({
+        toast: true,
+        position: 'top-end',
         showConfirmButton: false,
-        timer: 1200
+        timer: 2000,
+        timerProgressBar: true,
+        showCloseButton: true,
+      
       })
+      
+      Toast.fire({
+        icon: 'success',
+        title: `${prodACarro.marca} ${prodACarro.modelo} Agregado Al Carrito`
+      })
+     
    });
  };
 };
@@ -123,7 +164,7 @@ function renderizarCarro(){
      
     });
     const total = prodEnCarrito.reduce((acumulador,art)=>acumulador + (art.precio*art.cantidad), 0);
-    totalAPagar.innerHTML=`ToTal: ${total}`
+    totalAPagar.innerHTML=`ToTal: ${total} U$S`
     updateBtnEliminarArticulo();
   }
   else{
@@ -189,7 +230,7 @@ function updateBtnEliminarArticulo(){
     btn.addEventListener("click",()=>{
       
       let prodAEliminar = carrito.find((producto)=> producto.id == btn.id);
-      if(prodAEliminar.cantidad !== 1)
+      if(prodAEliminar.cantidad !== 1) //Si la propiedad cantidad es distinto de uno le resto 1 hasta llegar a catidad 1 y ahi ejecuto el else(borro el articulo)
       {
         cantidadProd = prodAEliminar.cantidad - 1;
         prodAEliminar.cantidad = cantidadProd;
@@ -199,7 +240,7 @@ function updateBtnEliminarArticulo(){
       }
 
       else{
-        prodAEliminar = carrito.indexOf(prodAEliminar);
+        prodAEliminar = carrito.indexOf(prodAEliminar); 
         eliminarArticulo(prodAEliminar);
         renderizarCarro();
       }
@@ -249,7 +290,9 @@ btnFinalizarCompra.addEventListener("click",()=>{
 });
 
 
-
+/***********************************************************************************************************************
+ Numero del carrito
+ ****************************************************************************************************************/
 
 function updateNumeroCarro(){
   let carroNumero = document.querySelector("#carroNumero");
@@ -269,9 +312,11 @@ updateNumeroCarro();
 
 
 
+/************************************************************************************************************
+ DARK MODE
+ **********************************************************************************************************/ 
 
 
-//Boton dark mode
 const btnDarkMode = document.querySelector("#btnDarkMode");
 
 if (localStorage.getItem("mode")=== "light")

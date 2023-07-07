@@ -1,0 +1,169 @@
+[
+
+    {
+        "id" : 1,
+        "categoria" : "Accesorios",
+        "marca" : "OCEAN",
+        "modelo" : "FARKING",
+        "precio" : 45,
+        "cantidad" : 1,
+        "imagen" : "./img/01.jpg"        
+    },
+    {
+        "id" : 2,
+        "categoria" : "Tablas",
+        "marca" : "CHANNEL ISLAND",
+        "modelo" : "SKATE",
+        "precio" : 850,
+        "cantidad" : 1,
+        "imagen" : "./img/02.jpg"        
+    },
+    {
+        "id" : 3,
+        "categoria" : "Accesorios",
+        "marca" : "SLATER",
+        "modelo" : "FFCSII",
+        "precio" : 125,
+        "cantidad" : 1,
+        "imagen" : "./img/03.jpg"        
+    },
+    {
+        "id" : 4,
+        "categoria" : "Accesorios",
+        "marca" : "JOHN FLORENCE",
+        "modelo" : "ROUND PRO",
+        "precio" : 49.50,
+        "cantidad" : 1,
+        "imagen" : "./img/04.jpg"        
+    },
+    {
+        "id" : 5,
+        "categoria" : "Trajes",
+        "marca" : "O'NEILL",
+        "modelo" : "HYPERFREAK",
+        "precio" : 499,
+        "cantidad" : 1,
+        "imagen" : "./img/05.jpg"        
+    },
+    {
+        "id" : 6,
+        "categoria" : "Tablas",
+        "marca" : "CHANNEL ISLANDS",
+        "modelo" : "SKATE",
+        "precio" : 854,
+        "cantidad" : 1,
+        "imagen" : "./img/06.jpg"        
+    },
+    {
+        "id" : 7,
+        "categoria" : "Trajes",
+        "marca" : "VISSLA",
+        "modelo" : "SEAS",
+        "precio" : 299,
+        "cantidad" : 1,
+        "imagen" : "./img/07.jpg"        
+    },
+    {
+        "id" : 8,
+        "categoria" : "Accesorios",
+        "marca" : "CREATURES",
+        "modelo" : "RELIANCE",
+        "precio" : 54.1,
+        "cantidad" : 1,
+        "imagen" : "./img/08.jpg"        
+    },
+    {
+        "id" : 9,
+        "categoria" : "Trajes",
+        "marca" : "O'NEILL",
+        "modelo" : "HAMMER",
+        "precio" : 134.95,
+        "cantidad" : 1,
+        "imagen" : "./img/09.jpg"        
+    },
+    {
+        "id" : 10,
+        "categoria" : "Trajes",
+        "marca" : "VISSLA",
+        "modelo" : "SEAS COMP",
+        "precio" : 279,
+        "cantidad" : 1,
+        "imagen" : "./img/10.jpg"        
+    },
+    {
+        "id" : 11,
+        "categoria" : "Trajes",
+        "marca" : "BILLABONG",
+        "modelo" : "ABSOLUTE",
+        "precio" : 279.95,
+        "cantidad" : 1,
+        "imagen" : "./img/11.jpg"        
+    },
+    {
+        "id" : 12,
+        "categoria" : "Trajes",
+        "marca" : "RIP CURL",
+        "modelo" : "E BOMB",
+        "precio" : 312,
+        "cantidad" : 1,
+        "imagen" : "./img/12.jpg"        
+    },
+    {
+        "id" : 13,
+        "categoria" : "Accesorios",
+        "marca" : "QUIKSILVER",
+        "modelo" : "MARATHON",
+        "precio" : 55,
+        "cantidad" : 1,
+        "imagen" : "./img/13.jpg"        
+    },
+    {
+        "id" : 14,
+        "categoria" : "Accesorios",
+        "marca" : "QUIKSILVER",
+        "modelo" : "SESSIONS",
+        "precio" : 53,
+        "cantidad" : 1,
+        "imagen" : "./img/14.jpg"        
+    },
+    {
+        "id" : 15,
+        "categoria" : "Tablas",
+        "marca" : "THUNDERBOLT",
+        "modelo" : "CAMPER LIGHT",
+        "precio" : 2000,
+        "cantidad" : 1,
+        "imagen" : "./img/15.jpg"        
+    },
+    {
+        "id" : 16,
+        "categoria" : "Tablas",
+        "marca" : "FIREWIRE",
+        "modelo" : "TJ EVERYDAY",
+        "precio" : 1600,
+        "cantidad" : 1,
+        "imagen" : "./img/16.jpg"        
+    },
+    {
+        "id" : 17,
+        "categoria" : "Tablas",
+        "marca" : "CHANNEL ISLANDS",
+        "modelo" : "HAPPY EVERYDAY",
+        "precio" : 1000,
+        "cantidad" : 1,
+        "imagen" : "./img/17.jpg"        
+    },
+    {
+        "id" : 18,
+        "categoria" : "Tablas",
+        "marca" : "TORQ",
+        "modelo" : "CLASSIC EVERYDAY",
+        "precio" : 650,
+        "cantidad" : 1,
+        "imagen" : "./img/18.jpg"        
+    }
+
+   
+
+]
+
